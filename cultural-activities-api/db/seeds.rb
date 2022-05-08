@@ -1,7 +1,8 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# Seeding Web Sources
+
+web_sources = [
+  {name: "CO Berlin", url: "https://co-berlin.org/en/program/calendar", slug: "co_berlin"},
+  {name: "Gorki", url: "https://www.gorki.de/en/programme", slug: "gorki"}
+]
+
+web_sources.each { |web_source_attr| WebSource.find_or_create_by(web_source_attr) }
