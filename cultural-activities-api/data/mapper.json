@@ -1,0 +1,118 @@
+{
+  "co_berlin": {
+    "parser": {
+      "url_prefix": "https://co-berlin.org",
+      "events_path": "div.views-row",
+      "details": {
+        "detail_url": {
+          "path": "article a",
+          "node_type": "link",
+          "use_url_prefix": true
+        },
+        "title": {
+          "path": "span.field--name-title h2"
+        },
+        "start_date": {
+          "path": "span.date-display-range",
+          "date_format": "%d,%b,%Y",
+          "day": {
+            "regex": "(?<=^\\w{3},\\s\\w{3}\\s)\\d+(?=,|(\\s\\W))"
+          },
+          "month": {
+            "regex": "(?<=^\\w{3},\\s)\\w{3}"
+          },
+          "year": {
+            "regex": "(?<=\\s)\\d{4}(?=$)"
+          }
+        },
+        "end_date": {
+          "path": "span.date-display-range",
+          "date_format": "%d,%b,%Y",
+          "day": {
+            "regex": "(?<=\\w{3}\\s)\\d+(?=,)"
+          },
+          "month": {
+            "regex": "(?<=,\\s)\\w{3}(?=\\s\\d+,)"
+          },
+          "year": {
+            "regex": "(?<=\\s)\\d{4}(?=$)"
+          }
+        },
+        "start_time": {
+          "path": null
+        },
+        "end_time": {
+          "path": null
+        },
+        "description": {
+          "path": "div.field--name-field-subtitle"
+        },
+        "image_url": {
+          "path": null
+        }
+      }
+    }
+  },
+  "gorki": {
+    "parser": {
+      "url_prefix": "https://www.gorki.de/en",
+      "events_path": "div.schedule-overview div.item-list--item",
+      "details": {
+        "detail_url": {
+          "path": "h2.h3 a",
+          "node_type": "link",
+          "use_url_prefix": false
+        },
+        "title": {
+          "path": "h2.h3 a"
+        },
+        "start_date": {
+          "path": "h2.h3 a",
+          "node_type": "link",
+          "date_format": "%d,%m,%Y",
+          "day": {
+            "regex": "(?<=\\d{4}-\\d{2}-)\\d{2}(?=-\\d{4})"
+          },
+          "month": {
+            "regex": "(?<=\\d{4}-)\\d{2}(?=-\\d{2})"
+          },
+          "year": {
+            "regex": "(?<=\\/)\\d{4}(?=-\\d{2}-\\d{2}-\\d{4}$)"
+          }
+        },
+        "end_date": {
+          "path": "h2.h3 a",
+          "node_type": "link",
+          "date_format": "%d,%m,%Y",
+          "day": {
+            "regex": "(?<=\\d{4}-\\d{2}-)\\d{2}(?=-\\d{4})"
+          },
+          "month": {
+            "regex": "(?<=\\d{4}-)\\d{2}(?=-\\d{2})"
+          },
+          "year": {
+            "regex": "(?<=\\/)\\d{4}(?=-\\d{2}-\\d{2}-\\d{4}$)"
+          }
+        },
+        "start_time": {
+          "path":  "h3.is-headline-sub",
+          "regex": "(?<=^)\\d{2}:\\d{2}\\w{2}(?=(\\s\\W)|$)",
+          "time_format": "%I:%M%P"
+        },
+        "end_time": {
+          "path": "h3.is-headline-sub",
+          "regex": "(?<=\\W\\s)\\d{2}:\\d{2}\\w{2}(?=$)",
+          "time_format": "%I:%M%P"
+        },
+        "description": {
+          "path": null
+        },
+        "image_url": {
+          "path": "div.image-wrapper img",
+          "node_type": "img",
+          "use_url_prefix": true
+        }
+      }
+    }
+  }
+}
