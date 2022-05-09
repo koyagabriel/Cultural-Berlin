@@ -11,7 +11,7 @@ class CulturalActivity < ApplicationRecord
 
 
   def self.search(params)
-    query = all
+    query = all.active
     %i[title web_source date].each do |attr|
       value = params.with_indifferent_access[attr]
       if value.present?
