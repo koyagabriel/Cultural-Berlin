@@ -1,13 +1,12 @@
 {
   "co_berlin": {
     "parser": {
-      "url_prefix": "https://co-berlin.org",
       "events_path": "div.views-row",
       "details": {
         "detail_url": {
           "path": "article a",
           "node_type": "link",
-          "use_url_prefix": true
+          "url_prefix": "https://co-berlin.org"
         },
         "title": {
           "path": "span.field--name-title h2"
@@ -55,13 +54,11 @@
   },
   "gorki": {
     "parser": {
-      "url_prefix": "https://www.gorki.de/en",
       "events_path": "div.schedule-overview div.item-list--item",
       "details": {
         "detail_url": {
           "path": "h2.h3 a",
-          "node_type": "link",
-          "use_url_prefix": false
+          "node_type": "link"
         },
         "title": {
           "path": "h2.h3 a"
@@ -110,7 +107,7 @@
         "image_url": {
           "path": "div.image-wrapper img",
           "node_type": "img",
-          "use_url_prefix": true
+          "url_prefix": "https://www.gorki.de/"
         }
       }
     }
