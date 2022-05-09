@@ -44,5 +44,7 @@ A simple app aggregating Cultural activities in Berlin
 5. Start the server by running `npm run dev`
 6. Go the Web page and you should see a list of upcoming cultural activities
 
+![img.png](img.png)
+
 ### Developer
 Koya Adegboyega.
