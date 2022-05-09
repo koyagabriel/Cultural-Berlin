@@ -65,7 +65,8 @@ class ParserService
     def get_event_details(event)
       details = HashWithIndifferentAccess.new
       get_event_attributes.each do |attribute|
-        details[attribute] = get_attribute_info(event, details_mapping.dig(attribute))
+        content = get_attribute_info(event, details_mapping.dig(attribute))
+        details[attribute] = (attribute == "image_url" && !content.present?) ? set_placeholder_image_url : content
       end
 
       get_event_time_attributes.each do |attribute|
@@ -93,6 +94,10 @@ class ParserService
 
         if ["link", "img"].include?(node_type.to_s) && url_prefix
           content = merge_url_prefix(content, url_prefix)
+        end
+
+        if(node_type.to_s == "img") && !content.present?
+          content = set_placeholder_image_url
         end
 
         return content
@@ -125,6 +130,11 @@ class ParserService
 
         (date && date_format) ? Date.strptime(date, date_format) : date
       end
+    end
+
+    def set_placeholder_image_url
+      num = Random.rand(1084)
+      "https://picsum.photos/id/#{num}/300/401"
     end
 
 end
