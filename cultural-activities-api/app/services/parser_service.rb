@@ -1,9 +1,8 @@
 class ParserService
-  attr_reader :document, :mapping, :url_prefix, :details_mapping
+  attr_reader :document, :mapping, :details_mapping
   def initialize(document, mapping)
     @document = document
     @mapping = mapping
-    @url_prefix = mapping.dig("url_prefix")
     @details_mapping = mapping.dig("details")
   end
 
@@ -36,7 +35,7 @@ class ParserService
       end
     end
 
-    def merge_url_prefix(suffix_url)
+    def merge_url_prefix(suffix_url, url_prefix)
       return suffix_url unless url_prefix.present? && suffix_url.present?
       "#{url_prefix.strip}#{suffix_url.strip}"
     end
@@ -84,7 +83,7 @@ class ParserService
       if path.present?
         node_type = attribute_mapping.dig("node_type")
         regex = attribute_mapping.dig("regex")
-        use_url_prefix = attribute_mapping.dig("use_url_prefix")
+        url_prefix = attribute_mapping.dig("url_prefix")
         node = get_node(event, path)
         content = get_node_content(node, node_type)
 
@@ -92,8 +91,8 @@ class ParserService
           content = get_value_with_regex(regex, content)
         end
 
-        if ["link", "img"].include?(node_type.to_s) && use_url_prefix
-          content = merge_url_prefix(content)
+        if ["link", "img"].include?(node_type.to_s) && url_prefix
+          content = merge_url_prefix(content, url_prefix)
         end
 
         return content
