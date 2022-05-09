@@ -1,4 +1,4 @@
 crawl_activities:
-  cron: '0 */1 * * * *'
+  cron: '0 0 * * *'
   class: CrawlCulturalActivities
   description: "This job crawls for cultural activities in Berlin"
