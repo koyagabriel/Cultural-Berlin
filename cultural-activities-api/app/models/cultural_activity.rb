@@ -13,15 +13,16 @@ class CulturalActivity < ApplicationRecord
 
   def self.search(params)
     query = all
-    %i[title start_date web_source].each do |attr|
+    %i[title web_source date].each do |attr|
       value = params.with_indifferent_access[attr]
       if value.present?
         case attr
         when :web_source
           query = query.where(web_source_id: value.to_i)
-        when :start_date
-          date = Date.strptime(value, "")
-          query = query.where("start_date >= ? OR end_date >= ?", date, date)
+        when :date
+          start_date =  Date.strptime(value[0], "%Y-%m-%d")
+          end_date =  Date.strptime(value[1], "%Y-%m-%d")
+          query = query.where(":end_date >= start_date and end_date >= :start_date", start_date: start_date, end_date: end_date)
         when :title
           query = query.where("title ILIKE ?", "%#{sanitize_sql_like(value)}%")
         end

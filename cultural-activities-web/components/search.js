@@ -7,11 +7,13 @@ import {useState} from "react";
 import  { map, isEmpty } from "lodash";
 
 const { Option } = Select;
+const { RangePicker } = DatePicker;
 
 const Search = ({setSearchParams}) => {
   const [webSources, setWebSources] = useState([]);
   const [selectedWebSource, setSelectedWebSource] = useState(null)
   const [title, setTitle] = useState(null);
+  const [date, setDate] = useState(null);
 
 
   const fetchWebSources = isEmpty(webSources) ? `${process.env.NEXT_PUBLIC_API_HOST}/web-sources` : null;
@@ -19,7 +21,7 @@ const Search = ({setSearchParams}) => {
     onSuccess: (data) => setWebSources(data.web_sources)
   });
 
-  const onChange = () => {}
+  const handleDateChange = (date, dateString) => { setDate(dateString) };
   const handleWebSourceChange = (value) => { setSelectedWebSource(value); };
   const handleTitleChange = ({ target: { value }}) => { setTitle(value); };
 
@@ -27,7 +29,8 @@ const Search = ({setSearchParams}) => {
     event.preventDefault();
     const searchParams = {
       title,
-      web_source: selectedWebSource
+      web_source: selectedWebSource,
+      date,
     };
     setSearchParams(searchParams);
   }
@@ -39,7 +42,7 @@ const Search = ({setSearchParams}) => {
       </div>
       <div>
         <Space direction="vertical">
-          <DatePicker onChange={onChange} placeholder="Select start date" />
+          <RangePicker onChange={handleDateChange} />
         </Space>
       </div>
       <div>

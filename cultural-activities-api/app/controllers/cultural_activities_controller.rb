@@ -12,6 +12,6 @@ class CulturalActivitiesController < ApplicationController
   private
 
     def search_params
-      params.permit(%i[web_source title date])
+      params.permit([:web_source, :title, date: []])
     end
 end
