@@ -4,6 +4,8 @@ import useSWR from "swr";
 import {isEmpty, map} from 'lodash';
 import { Card } from "antd";
 import {useState} from "react";
+import moment from "moment";
+import { EditOutlined, SettingOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -25,18 +27,32 @@ const Activity = ({searchParams, setSearchParams}) => {
     }
   });
 
+  const getDescription = (start_date, end_date) => {
+    start_date = moment(start_date);
+    end_date = moment(end_date);
+
+    if (start_date.isSame(end_date))  return start_date.format("MMM D, YYYY");
+    return `${start_date.format("MMM D")} - ${end_date.format("MMM D, YYYY")}`;
+  }
+
   return (
 
     <div className={styles.grid}>
       {
-        map(activities, ({title, id, detail_url, description, image_url}) => (
+        map(activities, ({title, id, detail_url, description, image_url, start_date, end_date}) => (
           <Card
             key={id}
             hoverable
             className={styles.card}
             cover={<img src={image_url}/>}
+            actions={[
+              <SettingOutlined key="setting">Hello</SettingOutlined>,
+              <EditOutlined key="edit" />,
+            ]}
           >
-            <Meta title={title} description={description} />
+            <Meta
+              title={title}
+              description={getDescription(start_date, end_date)} />
           </Card>
         ))
       }
