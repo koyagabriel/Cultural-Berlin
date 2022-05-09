@@ -4,12 +4,11 @@ class CulturalActivity < ApplicationRecord
   validates_presence_of %i[title]
   validates_associated :web_source
 
-  scope :ordered_activities_by_start_date, -> { where("start_date >= ? OR end_date >= ?", Date.today, Date.today).order(:start_date) }
-  scope :scheduled_activities, -> { where("start_date >= ? OR end_date >= ?", Date.today, Date.today)}
+  enum status: { active: 1, inactive: 0 }
 
-  def self.delete_scheduled_activities
-    scheduled_activities.destroy_all
-  end
+  scope :ordered_activities_by_start_date, -> { active.where("start_date >= ? OR end_date >= ?", Date.today, Date.today).order(:start_date) }
+  scope :activities_to_deactivate, -> (web_source_id) { active.where("web_source_id = ? AND end_date >= ?",  web_source_id, Date.today) }
+
 
   def self.search(params)
     query = all
@@ -30,4 +29,9 @@ class CulturalActivity < ApplicationRecord
     end
     query.order(:start_date)
   end
+
+  def self.deactivate_activities(web_source_id)
+    activities_to_deactivate(web_source_id).update_all(status: :inactive)
+  end
+
 end

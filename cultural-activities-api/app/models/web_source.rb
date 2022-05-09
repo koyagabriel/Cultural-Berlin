@@ -8,10 +8,11 @@ class WebSource < ApplicationRecord
     mapper_path = Rails.root.join("data/mapper.json")
     mapper = JSON.load(File.open(mapper_path))
 
-    ActiveRecord::Base.transaction do
-      all.each do |web_source|
+    all.each do |web_source|
+      ActiveRecord::Base.transaction do
         mapping = mapper.dig(web_source.slug)
-        events = EventScrapperService.new(web_source.url, mapping).parse_events
+        events = EventScrapperService.new(web_source, mapping).parse_events
+        CulturalActivity.deactivate_activities(web_source.id)
         web_source.cultural_activities.create(events)
       end
     end
