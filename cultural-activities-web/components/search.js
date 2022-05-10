@@ -37,16 +37,16 @@ const Search = ({setSearchParams}) => {
 
   return (
     <div className={styles.grid}>
-      <div>
+      <div className={styles.search}>
         <Input placeholder="Title" value={title} onChange={handleTitleChange} />
       </div>
-      <div>
+      <div className={styles.search}>
         <Space direction="vertical">
           <RangePicker onChange={handleDateChange} />
         </Space>
       </div>
       <div>
-        <Select style={{ width: 120 }} value={selectedWebSource} onSelect={handleWebSourceChange}>
+        <Select className={styles.select} style={{marginRight: "1rem"}} value={selectedWebSource} onSelect={handleWebSourceChange}>
           {
             map(webSources, ({id, name}) => (
               <Option key={id} value={id}>{name}</Option>
@@ -55,7 +55,7 @@ const Search = ({setSearchParams}) => {
         </Select>
       </div>
       <Button type="primary" icon={<SearchOutlined />} onClick={handleSearch}>
-        Search
+        Filter
       </Button>
     </div>
   );

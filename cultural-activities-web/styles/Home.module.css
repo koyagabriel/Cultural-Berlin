@@ -82,6 +82,17 @@
   margin-left: 0.5rem;
 }
 
+.search {
+  margin-left: 3rem;
+  width: 20rem !important;
+}
+
+.select {
+  width: 20rem !important;
+}
+
+
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

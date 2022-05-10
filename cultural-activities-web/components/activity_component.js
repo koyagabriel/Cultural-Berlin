@@ -5,7 +5,7 @@ import {isEmpty, map} from 'lodash';
 import { Card, Tooltip } from "antd";
 import {useState} from "react";
 import moment from "moment";
-import { SmallDashOutlined, SettingOutlined } from '@ant-design/icons';
+import { ArrowRightOutlined } from '@ant-design/icons';
 
 const { Meta } = Card;
 
@@ -38,7 +38,8 @@ const Activity = ({searchParams, setSearchParams}) => {
   const getViewDetailsButton = (detailUrl) =>  (
     <Tooltip title="Click to view details">
       <a href={detailUrl} target="_blank">
-        <SmallDashOutlined key="detail" twoToneColor="#eb2f96" />
+        View Details
+        <ArrowRightOutlined key="detail" twoToneColor="#eb2f96" style={{marginLeft: "5px"}} />
       </a>
     </Tooltip>
   );
@@ -53,10 +54,7 @@ const Activity = ({searchParams, setSearchParams}) => {
             hoverable
             className={styles.card}
             cover={<img src={image_url}/>}
-            actions={[
-              <SettingOutlined key="setting">Hello</SettingOutlined>,
-              getViewDetailsButton(detail_url),
-            ]}
+            actions={[getViewDetailsButton(detail_url)]}
           >
             <Meta
               title={title}
