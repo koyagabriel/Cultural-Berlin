@@ -2,7 +2,7 @@ import styles from "../styles/Home.module.css";
 import { fetcher } from "../lib/utils";
 import useSWR from "swr";
 import {isEmpty, map} from 'lodash';
-import { Card, Tooltip } from "antd";
+import { Card, Tooltip, Result } from "antd";
 import {useState} from "react";
 import moment from "moment";
 import { ArrowRightOutlined } from '@ant-design/icons';
@@ -43,6 +43,16 @@ const Activity = ({searchParams, setSearchParams}) => {
       </a>
     </Tooltip>
   );
+
+  if (isEmpty(activities)) {
+    return (
+      <Result
+        status="404"
+        title="No Activities found!"
+        subTitle="please check filter criteria"
+      />
+    )
+  }
 
   return (
 
